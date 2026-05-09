@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam 3 Practice Test</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:20px;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+.question{
+    background:#1e293b;
+    padding:15px;
+    margin-bottom:20px;
+    border-radius:10px;
+}
+h1{
+    text-align:center;
+}
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+.feedback{
+    margin-top:10px;
+    padding:10px;
+    border-radius:8px;
+}
+.correct{
+    background:#14532d;
+}
+.incorrect{
+    background:#7f1d1d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Exam 3 Practice Test</h1>
+
+<div id="quiz"></div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+q:"The preferred formation for responding to an active shooter incident indoors is:",
+a:[
+"A square",
+"A diamond or T",
+"A rectangle",
+"A safety circle"
+],
+c:1
+},
+
+{
+q:"When stacked outside of a room ready to make entry, who gives the command to MOVE?",
+a:[
+"The point man",
+"The second officer in the stack",
+"The third officer in the stack",
+"The team leader"
+],
+c:1
+},
+
+{
+q:"What element is missing from the NICER concept? Neutralize, _____, Contain, Evaluate, Report.",
+a:[
+"Interrupt",
+"Immobilize",
+"Isolate",
+"Interdict"
+],
+c:2
+},
+
+{
+q:"What is the primary objective in an active threat response?",
+a:[
+"Assemble an emergency entry team",
+"Neutralizing the threat",
+"Rescue victims",
+"Establish a perimeter"
+],
+c:1
+},
+
+{
+q:"During an incident, an authority structure in which the role of Incident Commander is shared by two or more individuals speaking with one voice is called:",
+a:[
+"Capitol Police Board",
+"A democracy",
+"Unified Command",
+"Incident Command"
+],
+c:2
+},
+
+{
+q:"The green flashing light on an Emergency Response Vehicle signifies:",
+a:[
+"Helicopter landing area",
+"Staging area",
+"Triage area",
+"Incident Command post"
+],
+c:3
+},
+
+{
+q:"The organizational component within ICS responsible for support and services is:",
+a:[
+"Incident Commander",
+"Liaison Officer",
+"Food Services Unit",
+"Logistics Section Chief"
+],
+c:3
+},
+
+{
+q:"Which extremist movements are typically hostile toward law enforcement?",
+a:[
+"Anti-government militia groups",
+"Sovereign Citizens",
+"Boogaloo Movement",
+"All of the above"
+],
+c:3
+},
+
+{
+q:"Some lone actor terrorists created ________, inspiring future attacks.",
+a:[
+"Online manifestos",
+"Pamphlets",
+"Homemade firearms",
+"Video games"
+],
+c:0
+},
+
+{
+q:"What do Boogaloo extremists seek?",
+a:[
+"A Second Civil War",
+"A stronger Congress",
+"Reduced taxes",
+"Border expansion"
+],
+c:0
+}
+
+];
+
+const quiz=document.getElementById("quiz");
+
+questions.forEach((q,index)=>{
+
+const div=document.createElement("div");
+div.className="question";
+
+let answersHTML="";
+
+q.a.forEach((answer,i)=>{
+answersHTML+=`
+<label>
+<input type="radio" name="q${index}" value="${i}">
+${answer}
+</label><br>
+`;
+});
+
+div.innerHTML=`
+<h3>Question ${index+1}</h3>
+<p>${q.q}</p>
+
+${answersHTML}
+
+<button onclick="checkAnswer(${index})">Check Answer</button>
+
+<div id="feedback${index}" class="feedback" style="display:none;"></div>
+`;
+
+quiz.appendChild(div);
+
+});
+
+function checkAnswer(index){
+
+const selected=document.querySelector(`input[name="q${index}"]:checked`);
+const feedback=document.getElementById(`feedback${index}`);
+
+if(!selected){
+feedback.style.display="block";
+feedback.className="feedback incorrect";
+feedback.innerHTML="Select an answer first.";
+return;
+}
+
+const answer=parseInt(selected.value);
+
+if(answer===questions[index].c){
+feedback.style.display="block";
+feedback.className="feedback correct";
+feedback.innerHTML="Correct";
+}
+else{
+feedback.style.display="block";
+feedback.className="feedback incorrect";
+feedback.innerHTML=`Incorrect. Correct answer: ${questions[index].a[questions[index].c]}`;
+}
+
+}
+
+</script>
+
+</body>
+</html>
